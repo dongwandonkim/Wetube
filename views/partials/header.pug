@@ -1,0 +1,14 @@
+header.header
+    .header__column
+        a(href=routes.home)
+            i.fab.fa-youtube
+    .header_-column
+        form(action=routes.search, method="get")
+            //- name은 req받을수있는 이름
+            input(type="text", placeholder="Search...", name="keyword")
+    .header__column
+        ul
+            li
+                a(href=routes.join) Join
+            li
+                a(href=routes.login) Log In
