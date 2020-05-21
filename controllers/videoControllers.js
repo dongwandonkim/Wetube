@@ -1,15 +1,17 @@
 import {videos} from "../db"
 
 export const home = (req, res) => {
-
     //videos(fake db.js) send to home.pug
     res.render("home", {pageTitle: "Home", fakedb:videos});
 }
 
 export const search = (req, res) => {
+    const {
+        query: { keyword: searchingBy }
+    } = req;
     //console.log(req.query);
     // keyword === searchbox name
-    res.render("search", {pageTitle: "Search", searchingBy: req.query.keyword});
+    res.render("search", {pageTitle: "Search", searchingBy, videos});
 }
 // export const videos = (req, res) => res.render("videos");
 export const videoDetail = (req, res) => res.render("videoDetail", {pageTitle: "Video Detail"});
