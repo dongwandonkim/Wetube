@@ -67,6 +67,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
 export const postGithubLogin = (req, res) => {
   res.redirect(routes.home);
 };
+
 //google login
 export const googleLogin = passport.authenticate('google', {
   scope: ['profile'],
@@ -77,20 +78,6 @@ export const googleLoginCallback = (accessToken, refreshToken, profile, cb) => {
 export const postGoogleLogin = (req, res) => {
   res.redirect(routes.home);
 };
-//facebook login
-// export const facebookLogin = passport.authenticate('facebook');
-// export const facebookLoginCallback = (
-//   accessToken,
-//   refreshToken,
-//   profile,
-//   cb
-// ) => {
-//   console.log(accessToken, refreshToken, profile, cb);
-// };
-
-// export const postFacebookLogin = (req, res) => {
-//   res.redirect(routes.home);
-// };
 
 export const logout = (req, res) => {
   //to do : process logout
@@ -120,5 +107,25 @@ export const userDetail = async (req, res) => {
 
 export const getEditProfile = (req, res) =>
   res.render('editProfile', { pageTitle: 'Edit Profile' });
+
+export const postEditProfile = async (req, res) => {
+  const {
+    body: { name, email },
+    file,
+  } = req;
+  try {
+    await User.findByIdAndUpdate(req.user.id, {
+      name,
+      email,
+      avatarUrl: file ? file.path : req.user.avatarUrl,
+    });
+    console.log(name, email);
+    res.redirect(routes.me);
+  } catch (err) {
+    //console.log(err);
+    res.render('editProfile', { pageTitle: 'Edit Profile' });
+  }
+};
+
 export const changePassword = (req, res) =>
   res.render('changePassword', { pageTitle: 'Change Password' });
