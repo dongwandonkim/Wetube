@@ -23,7 +23,7 @@ export const postJoin = async (req, res, next) => {
       //when user creates an account then next();
       next();
     } catch (err) {
-      console.log(err);
+      //console.log(err);
       //if fail to create acc, redirect
       res.redirect(routes.home);
     }
@@ -98,7 +98,7 @@ export const userDetail = async (req, res) => {
     params: { id },
   } = req;
   try {
-    const user = await User.findById(id);
+    const user = await await User.findById(id);
     res.render('userDetail', { pageTitle: 'User Detail', user });
   } catch (err) {
     res.redirect(routes.home);
@@ -117,15 +117,32 @@ export const postEditProfile = async (req, res) => {
     await User.findByIdAndUpdate(req.user.id, {
       name,
       email,
-      avatarUrl: file ? file.path : req.user.avatarUrl,
+      avatarUrl: file ? `/${file.path}` : req.user.avatarUrl,
     });
-    console.log(name, email);
     res.redirect(routes.me);
   } catch (err) {
     //console.log(err);
-    res.render('editProfile', { pageTitle: 'Edit Profile' });
+    res.redirect(routes.editProfile);
   }
 };
 
-export const changePassword = (req, res) =>
+export const getChangePassword = (req, res) =>
   res.render('changePassword', { pageTitle: 'Change Password' });
+
+export const postChangePassword = async (req, res) => {
+  const {
+    body: { oldPassword, newPassword1, newPassword2 },
+  } = req;
+  try {
+    if (newPassword1 !== newPassword2) {
+      res.status(400);
+      res.redirect(`/users/${routes.changePassword}`);
+      return;
+    }
+    await req.user.changePassword(oldPassword, newPassword1);
+    res.redirect(routes.me);
+  } catch (err) {
+    res.status(400);
+    res.redirect(`/users/${routes.changePassword}`);
+  }
+};
