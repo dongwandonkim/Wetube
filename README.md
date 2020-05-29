@@ -1,7 +1,7 @@
 # WeTube
 
-Stack
-VanillaJS
+# Stack
+
 Pug
 NodeJs
 Express
