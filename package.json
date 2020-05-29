@@ -11,7 +11,7 @@
   "author": "dongwan kim",
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "^7.9.6",
+    "@babel/core": "^7.10.1",
     "@babel/node": "^7.8.7",
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.9.6",
@@ -45,6 +45,7 @@
     "webpack-cli": "^3.3.11"
   },
   "devDependencies": {
+    "@babel/cli": "^7.10.1",
     "eslint": "^7.0.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
