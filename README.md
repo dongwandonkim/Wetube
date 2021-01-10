@@ -10,12 +10,12 @@ MongoDB
 ## Pages:
 
 - [x] Home
-- [ ] Join
-- [ ] Login
+- [x] Join
+- [x] Login
 - [x] Search
-- [ ] User Detail
+- [x] User Detail
 - [x] Edit Profile
-- [ ] Change Password
+- [x] Change Password
 - [x] Upload
 - [x] Video Detail
 - [x] Edit Video
